@@ -1,0 +1,65 @@
+{
+    "pipeline": {
+        "roleArn": "arn:aws:iam::375144106126:role/AWS-CodePipeline-Service", 
+        "stages": [
+            {
+                "name": "Source", 
+                "actions": [
+                    {
+                        "inputArtifacts": [], 
+                        "name": "Source", 
+                        "actionTypeId": {
+                            "category": "Source", 
+                            "owner": "ThirdParty", 
+                            "version": "1", 
+                            "provider": "GitHub"
+                        }, 
+                        "outputArtifacts": [
+                            {
+                                "name": "MyApp"
+                            }
+                        ], 
+                        "configuration": {
+                            "Owner": "maepachi08", 
+                            "Repo": "test", 
+                            "Branch": "master", 
+                            "OAuthToken": "f1edfa83345dfc7fd2d1053bdb95bda4527dcc26"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }, 
+            {
+                "name": "TestStaging", 
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                                "name": "MyApp"
+                            }
+                        ], 
+                        "name": "test", 
+                        "actionTypeId": {
+                            "category": "Deploy", 
+                            "owner": "AWS", 
+                            "version": "1", 
+                            "provider": "CodeDeploy"
+                        }, 
+                        "outputArtifacts": [], 
+                        "configuration": {
+                            "ApplicationName": "test", 
+                            "DeploymentGroupName": "test"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }
+        ], 
+        "artifactStore": {
+            "type": "S3", 
+            "location": "codepipeline-ap-northeast-1-116895578638"
+        }, 
+        "name": "maepachi08-test", 
+        "version": 1
+    }
+}
